@@ -1,0 +1,60 @@
+{% include "partials/base.html.twig" %}
+
+{% block stylesheets %}
+    <style>
+        .table th {
+            font-size: 2em;
+            font-weight: bold;
+            color: #000;
+        }
+        .table td {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #000;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <center>
+        <div class="container">
+            <h2 class="my-4 text-center">INFORMATIONS D'IDENTITE</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Photo d'identité</th>
+                        <th scope="col">Nom Complet</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Numero De Telephone</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for portefeuille in portefeuilles %}
+                        <tr>
+                            <td>
+                                {% if portefeuille.downloadURL %}
+                                    <img src="{{ portefeuille.downloadURL }}" alt="Photo d'identité" class="rounded-circle" width="50" height="50">
+                                {% else %}
+                                    <img src="{{ asset('uploads/photos/default.png') }}" alt="Photo d'identité par défaut" class="rounded-circle" width="50" height="50">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <strong>{{ portefeuille.fullName }}</strong>
+                            </td>
+                            <td>
+                                <strong>{{ portefeuille.email }}</strong>
+                            </td>
+                            <td>
+                                <strong>{{ portefeuille.phoneNumber }}</strong>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_imprimer_portefeuille', {'id': portefeuille.id}) }}" class="btn btn-primary btn-sm">Imprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </center>
+{% endblock %}

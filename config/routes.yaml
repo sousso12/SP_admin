@@ -1,0 +1,86 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+# ZONE POUR GERER LE DASHBORD
+
+app_dashboard:
+    path: '/dashbord'
+    controller: App\Controller\DashboardController::index
+    methods: ['GET']
+
+###############################################################################################
+# ZONE POUR L'AUTHENTIFICATION
+app_login:
+    path: '/'
+    controller: 'App\Controller\SecurityController::login'
+
+app_logout:
+    path: '/logout'
+    controller: 'App\Controller\SecurityController::logout'
+
+
+app_register:
+    path: '/register'
+    controller: 'App\Controller\RegistrationController::register'
+
+###############################################################################################
+# ZONE POUR GERER LES PORTEFEUILLES
+
+# ROUTE POUR CREER UN PORTFEUILLE
+app_ajouter_portefeuille:
+    path: '/creerPortefeuille'
+    controller: App\Controller\CompteController::ajouterPortefeuille
+
+# ROUTE POUR MODIFIER UN PORTFEUILLE
+app_modifier_portefeuille:
+    path: '/compte/{id}/modifierPortefeuille'
+    controller: App\Controller\CompteController::modifierPortefeuille
+
+# ROUTE POUR AFFICHER LES PORTEFEUILLE
+app_afficher_portefeuille:
+    path: '/affichercompte'
+    controller: App\Controller\CompteController::afficherPortefeuille
+
+# ROUTE POUR SUPPRIMER UN PORTEFEUILLE
+app_supprimer_portefeuille:
+    path: '/compte/{id}/supprimerPortefeuille'
+    controller: App\Controller\CompteController::supprimerPortefeuille
+
+
+# ROUTE POUR AFFICHER LES INFOS JURIDIQUE
+app_info_portefeuille:
+    path: '/infoIdentite'
+    controller: App\Controller\CompteController::infoIdentite
+
+
+# ROUTE POUR IMPRIMER LES PORTEFEUILLES
+app_imprimer_portefeuille:
+    path: '/compte/{id}/imprimer'
+    controller: App\Controller\CompteController::imprimerPortefeuille
+
+
+
+##########################################################################################
+# ZONE POUR GERER LES TRANSACTIONS
+
+# ROUTE POUR LA LISTE DES TRANSACTIONS
+app_transaction:
+    path: '/consulter_historique'
+    controller: App\Controller\TransactionController::historique
+
+# ROUTE POUR ANNULER LES TRANSACTONS
+app_annuler_transaction:
+    path: '/transaction/{id}/supprimerTransaction'
+    controller: App\Controller\TransactionController::supprimerTransaction
+
+
+
+# ROUTE POUR REJETER LES TRANSACTIONS
+app_rejeter_transaction:
+    path: '/rejeter_transaction/{numTransaction}'
+    controller: App\Controller\TransactionController::rejeterTransaction
+    methods: [POST] # Assurez-vous d'utiliser la méthode HTTP appropriée
+

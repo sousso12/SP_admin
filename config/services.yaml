@@ -1,0 +1,23 @@
+# config/services.yaml
+
+parameters:
+    # Paramètre pour le répertoire de téléchargement des photos
+    photos_directory: '%kernel.project_dir%/public/uploads/photos'
+
+services:
+    # Configuration par défaut pour les services dans ce fichier
+    _defaults:
+        autowire: true      # Injecte automatiquement les dépendances dans vos services.
+        autoconfigure: true # Enregistre automatiquement vos services comme commandes, abonnés aux événements, etc.
+
+    # Rendre les classes dans src/ disponibles en tant que services
+    # Cela crée un service par classe dont l'ID est le nom complet de la classe
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Kernel.php'
+            - '../src/Entity/' # Vous pouvez laisser cette ligne décommentée
+
+    # Ajoutez plus de définitions de services lorsque la configuration explicite est nécessaire
+    # veuillez noter que les dernières définitions remplacent toujours les précédentes

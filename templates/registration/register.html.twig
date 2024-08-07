@@ -1,0 +1,58 @@
+{% block title %}Enregistrer
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		body {
+			background-image: url('{{ asset('images/fond_ecran1.jpeg') }}');
+			background-size: cover; /* Assure que l'image de fond couvre toute la page */
+			background-position: center; /* Centre l'image */
+			background-repeat: no-repeat; /* Empêche la répétition de l'image */
+		}
+		.container {
+			padding: 2rem;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container d-flex justify-content-center align-items-center min-vh-100">
+		<div class="card p-4" style="max-width: 400px; width: 100%;">
+			<h3 class="text-center mb-4">Inscription</h3>
+
+			{% if form_errors(registrationForm) %}
+				<div class="alert alert-danger">
+					{{ form_errors(registrationForm) }}
+				</div>
+			{% endif %}
+
+			{{ form_start(registrationForm) }}
+			<div class="form-group">
+				{{ form_label(registrationForm.email) }}
+				{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="form-group">
+				{{ form_label(registrationForm.plainPassword, 'Password') }}
+				{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="form-check mb-3">
+				{{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+				{{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+			</div>
+
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+			<button type="submit" class="btn btn-lg btn-primary btn-block">M'inscrire</button>
+			{{ form_end(registrationForm) }}
+
+			<div class="text-center mt-3">
+				<p>Vous avez déjà un compte ?
+					<a href="{{ path('app_login') }}">Connexion</a>
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

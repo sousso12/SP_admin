@@ -1,0 +1,125 @@
+{% include "partials/base.html.twig" %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 1000px;
+			width: 95%;
+			font: 16px / 1.5 sans-serif;
+		}
+
+		.example-wrapper h1 {
+			text-align: center;
+			color: #333;
+		}
+
+		.transactions-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+
+		.transactions-table th,
+		.transactions-table td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.transactions-table th {
+			background-color: #f4f4f4;
+		}
+
+		.transactions-table tr:nth-child(even) {
+			background-color: #f9f9f9;
+		}
+
+		.transactions-table tr:hover {
+			background-color: #f1f1f1;
+		}
+
+		.status-accepted {
+			color: #4caf50; /* Green for accepted */
+			font-weight: bold;
+		}
+
+		.status-rejected {
+			color: #f44336; /* Red for rejected */
+			font-weight: bold;
+		}
+
+		.delete-button,
+		.reject-button {
+			background-color: #f44336;
+			color: white;
+			border: none;
+			padding: 6px 12px;
+			cursor: pointer;
+			border-radius: 4px;
+			margin-right: 5px;
+		}
+
+		.delete-button:hover,
+		.reject-button:hover {
+			background-color: #d32f2f;
+		}
+
+		.reject-button {
+			background-color: #ff9800;
+		}
+
+		.reject-button:hover {
+			background-color: #e68a00;
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>Historique des Transactions ✅</h1>
+
+		<table class="transactions-table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Montant</th>
+					<th>Status</th>
+					<th>Numéro de Transaction</th>
+					<th>Compte Client</th>
+					<th>Compte Marchand</th>
+					<th>Date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for transaction in transactions %}
+					<tr>
+						<td>{{ transaction.id }}</td>
+						<td>{{ transaction.amount|number_format(2, ',', ' ') }}
+							€</td>
+						<td class="{{ transaction.status == 'Accepted' ? 'status-accepted' : 'status-rejected' }}">{{ transaction.status }}</td>
+						<td>{{ transaction.numTransaction }}</td>
+						<td>{{ transaction.numCompteClient }}</td>
+						<td>{{ transaction.numCompteMarchand }}</td>
+						<td>{{ transaction.date|date('d/m/Y H:i') }}</td>
+						<td>
+							<!-- Formulaire pour rejeter une transaction -->
+							{% if transaction.status != 'Rejetée' %}
+								<form action="{{ path('app_rejeter_transaction', {'numTransaction': transaction.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir rejeter cette transaction ?');">
+									<button type="submit" class="reject-button">Rejeter</button>
+								</form>
+							{% endif %}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8" style="text-align: center;">Aucune transaction disponible.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

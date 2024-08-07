@@ -1,0 +1,25 @@
+# config/packages/framework.yaml
+framework:
+    secret: '%env(APP_SECRET)%'
+    # Activer la protection CSRF
+    csrf_protection: true
+
+    # Configuration de la session
+    session:
+        handler_id: null
+        cookie_secure: auto  # 'auto' active le cookie sécurisé en HTTPS
+        cookie_samesite: lax # Définit le niveau de protection contre les attaques CSRF
+        cookie_httponly: true
+        name: YOUR_SESSION_NAME  # Vous pouvez définir un nom spécifique pour le cookie de session
+
+    # Vous pouvez ajouter d'autres paramètres si nécessaire
+    # esi: true
+    # fragments: true
+
+
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file

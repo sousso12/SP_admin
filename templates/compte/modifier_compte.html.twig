@@ -1,0 +1,69 @@
+{% include "partials/base.html.twig" %}
+
+{% block body %}
+<div class="container">
+	<h2 class="my-4 text-center">Modifier le portefeuille</h2>
+
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card bg-light">
+				<div class="card-body">
+					{{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+					<div class="mb-3">
+						{{ form_label(form.fullName, 'Nom complet') }}
+						{{ form_widget(form.fullName, {'attr': {'class': 'form-control', 'placeholder': 'Nom complet'}}) }}
+						{{ form_errors(form.fullName) }}
+					</div>
+
+					<div class="mb-3">
+						{{ form_label(form.email, 'Email') }}
+						{{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+						{{ form_errors(form.email) }}
+					</div>
+
+					<div class="mb-3">
+						{{ form_label(form.password, 'Mot de passe') }}
+						{{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}}) }}
+						{{ form_errors(form.password) }}
+					</div>
+
+					<div class="mb-3">
+						{{ form_label(form.phoneNumber, 'Numéro de téléphone') }}
+						{{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de téléphone'}}) }}
+						{{ form_errors(form.phoneNumber) }}
+					</div>
+
+					<div class="mb-3">
+						{{ form_label(form.downloadURL, 'Photo d\'identité') }}
+                        {{ form_widget(form.downloadURL, {'attr': {'class': 'form-control-file'}}) }}
+                        {{ form_errors(form.downloadURL) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.userType, 'Type de portefeuille') }}
+                        {{ form_widget(form.userType, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.userType) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.numCompte, 'Numéro de compte') }}
+                        {{ form_widget(form.numCompte, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de compte'}}) }}
+                        {{ form_errors(form.numCompte) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(form.solde, 'Solde actuel') }}
+                        {{ form_widget(form.solde, {'attr': {'class': 'form-control', 'placeholder': 'Solde actuel'}}) }}
+                        {{ form_errors(form.solde) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Modifier</button>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

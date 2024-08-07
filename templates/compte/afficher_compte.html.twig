@@ -1,0 +1,69 @@
+{% include "partials/base.html.twig" %}
+
+{% block stylesheets %}
+	<style>
+		.table th {
+			font-size: 2em; /* Augmente la taille de la police */
+			font-weight: bold; /* Texte en gras */
+			color: #000; /* Texte noir */
+		}
+		.table td {
+			font-size: 1.2em; /* Augmente la taille de la police */
+			font-weight: bold; /* Texte en gras */
+			color: #000; /* Texte noir */
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="my-4 text-center">Liste des portefeuilles</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Photo d'identité</th>
+					<th scope="col">Nom complet</th>
+					<th scope="col">Email</th>
+					<th scope="col">Numéro de téléphone</th>
+					<th scope="col">Solde actuel</th>
+					<th scope="col">Numéro de compte</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for portefeuille in portefeuilles %}
+					<tr>
+						<td>
+							{% if portefeuille.downloadURL %}
+								<img src="{{ portefeuille.downloadURL }}" alt="Photo d'identité" class="rounded-circle" width="50" height="50">
+							{% else %}
+								<img src="{{ asset('uploads/photos/default.png') }}" alt="Photo d'identité par défaut" class="rounded-circle" width="50" height="50">
+							{% endif %}
+						</td>
+						<td>
+							<strong>{{ portefeuille.fullName }}</strong>
+						</td>
+						<td>
+							<strong>{{ portefeuille.email }}</strong>
+						</td>
+						<td>
+							<strong>{{ portefeuille.phoneNumber }}</strong>
+						</td>
+						<td>
+							<strong>{{ portefeuille.solde }}</strong>
+						</td>
+						<td>
+							<strong>{{ portefeuille.numCompte }}</strong>
+						</td>
+						<td>
+							<form method="post" action="{{ path('app_supprimer_portefeuille', {'id': portefeuille.id}) }}" style="display:inline-block;">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ portefeuille.id) }}">
+								<button class="btn btn-danger btn-sm">Désactiver</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
